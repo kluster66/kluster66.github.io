@@ -1,0 +1,320 @@
+# Guide Complet sur le Model Context Protocol (MCP)
+
+## Résumé
+
+Ce document présente le **Model Context Protocol (MCP)**, un framework open-source initié par [Anthropic](https://www.anthropic.com/). Il détaille son objectif de standardisation des intégrations entre les systèmes d'IA (comme les LLM) et les outils externes.
+
+Cette documentation couvre :
+- La définition et l'objectif du MCP.
+- Une liste des serveurs MCP publiquement disponibles.
+- Un guide complet pour connecter Claude Desktop à n8n, détaillant trois approches d'intégration.
+- Une documentation spécifique pour l'installation et l'utilisation du serveur MCP Puppeteer pour l'automatisation de navigateur.
+
+---
+
+## Qu'est-ce que le Model Context Protocol (MCP) ?
+
+Le Model Context Protocol (MCP) est un framework open-source conçu pour standardiser la manière dont les grands modèles de langage (LLM) s'intègrent et partagent des données avec des outils et des sources de données externes.
+
+Il fournit une interface universelle permettant des connexions sécurisées et bidirectionnelles. L'objectif principal est de simplifier des intégrations qui nécessitaient auparavant des développements personnalisés et complexes pour chaque outil.
+
+- **Documentation Officielle** : [modelcontextprotocol.io](https://modelcontextprotocol.io/)
+
+---
+
+## Serveurs MCP Principaux
+
+Voici une liste des serveurs MCP (Model Context Protocol) couramment utilisés et disponibles publiquement :
+
+- **Filesystem** : Permet l'accès sécurisé aux fichiers et dossiers locaux.
+- **GitHub** : Intégration avec les repositories (recherche, gestion de fichiers, issues, pull requests).
+- **PostgreSQL** : Connexion et exécution de requêtes sur des bases de données PostgreSQL.
+- **Slack** : Intégration pour la gestion des canaux et des messages.
+- **Google Drive** : Accès aux fichiers et dossiers Google Drive.
+- **Puppeteer** : Automatisation de navigateur web et web scraping (détaillé plus bas).
+- **Memory** : Système de mémoire persistante pour stocker des informations entre les sessions.
+- **Brave Search** : Intégration avec le moteur de recherche Brave.
+
+---
+
+## Connexion Claude & n8n via MCP
+
+Ce guide explique comment connecter Claude Desktop à votre instance n8n pour déployer automatiquement des workflows via des prompts.
+
+### 🎯 Approche 1 : Serveur `n8n-mcp` (Recommandé pour la création de workflows)
+
+Ce serveur MCP donne à Claude une connaissance complète de tous les nœuds n8n (525+), lui permettant de construire des workflows JSON valides du premier coup.
+
+#### Installation via Docker (Méthode recommandée)
+
+Ajoutez cette configuration dans votre fichier `claude_desktop_config.json` :
+
+- **MacOS/Linux** : `~/Library/Application Support/Claude/claude_desktop_config.json`
+- **Windows** : `%APPDATA%\Claude\claude_desktop_config.json`
+
+```json
+{
+  "mcpServers": {
+    "n8n-mcp": {
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "--init", "ghcr.io/czlonkowski/n8n-mcp:latest"]
+    }
+  }
+}
+```
+
+#### ✨ Fonctionnalités
+
+- Accès à plus de 525 nœuds n8n (99% de couverture des propriétés).
+- Inclusion de 2 646 exemples de configurations réelles.
+- Validation de la configuration avant le déploiement.
+- Temps de réponse moyen de 12ms (base SQLite).
+- Recherche intelligente de nœuds (par nom, catégorie, fonctionnalité).
+
+#### 📝 Exemple d'utilisation
+
+Après installation et redémarrage de Claude Desktop, vous pouvez demander :
+> "Crée-moi un workflow n8n qui envoie un email quotidien avec les nouveaux articles d'un flux RSS."
+
+Claude générera un workflow JSON complet, prêt à être importé dans n8n.
+
+### 🔧 Approche 2 : MCP Server `n8n-mcp-server` (Pour le contrôle de votre instance)
+
+Ce serveur vous permet de gérer directement votre instance n8n auto-hébergée depuis Claude (lister, créer, exécuter des workflows).
+
+#### 🔑 Prérequis
+
+- Une instance n8n auto-hébergée (version 1.0+).
+- Une clé API n8n.
+- Node.js 18 ou supérieur.
+
+#### 📦 Installation via NPX
+
+Ajoutez ceci à votre fichier `claude_desktop_config.json` :
+
+```json
+{
+  "mcpServers": {
+    "n8n": {
+      "command": "npx",
+      "args": ["-y", "@ahmad.soliman/mcp-n8n-server"],
+      "env": {
+        "N8N_HOST_URL": "https://votre-instance-n8n.com",
+        "PROJECT_ID": "votre_project_id",
+        "N8N_API_KEY": "votre_cle_api"
+      }
+    }
+  }
+}
+```
+*Note : `PROJECT_ID` est optionnel, requis uniquement pour les instances cloud n8n.*
+
+#### ✨ Fonctionnalités disponibles
+
+- Lister tous les workflows n8n.
+- Exécuter des workflows manuellement (avec données personnalisées).
+- Activer et désactiver des workflows.
+- Voir l'historique et les détails des exécutions.
+- Lister et appeler les webhooks.
+- Créer, mettre à jour et supprimer des workflows (CRUD).
+
+### 🔨 Approche 3 : `MCP Server Trigger` (Natif n8n)
+
+Depuis n8n v1.88, vous pouvez utiliser le nœud natif `MCP Server Trigger` pour exposer vos workflows directement à Claude.
+
+#### Configuration dans n8n
+
+1. Créez un nouveau workflow dans n8n.
+2. Ajoutez le nœud **`MCP Server Trigger`**.
+3. Connectez-y des nœuds **`Custom n8n Workflow Tool`** pour exposer des workflows spécifiques.
+4. Activez le workflow pour obtenir l'URL de production.
+5. Configurez l'authentification (optionnel mais recommandé).
+
+#### Configuration dans Claude Desktop
+
+Claude Desktop ne supportant pas directement les connexions SSE (Server-Sent Events), vous devez utiliser un **gateway SSE**.
+
+```json
+{
+  "mcpServers": {
+    "n8n-workflow": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sse",
+        "--sse-url",
+        "URL_MCP_N8N",
+        "--header",
+        "Authorization: Bearer VOTRE_TOKEN"
+      ]
+    }
+  }
+}
+```
+Remplacez `URL_MCP_N8N` par l'URL de production du nœud MCP Server Trigger et `VOTRE_TOKEN` par votre token d'authentification.
+
+> **⚠️ Important pour les Reverse Proxy**
+> Si vous utilisez nginx ou Caddy, vous devez configurer SSE correctement. Pour nginx, ajoutez ces directives pour le endpoint `/mcp*` :
+> `proxy_buffering off; proxy_cache off; proxy_set_header Connection ''; chunked_transfer_encoding off;`
+
+### 🔄 Quelle approche choisir ?
+
+- **Approche 1 (`n8n-mcp`)** : Idéal pour **CONSTRUIRE** des workflows. Claude connaît tous les nœuds et peut générer des workflows JSON parfaits. Installation simple (Docker).
+- **Approche 2 (`n8n-mcp-server`)** : Idéal pour **GÉRER** votre instance n8n existante. Permet de lister, exécuter, et administrer vos workflows via Claude.
+- **Approche 3 (`MCP Server Trigger`)** : Intégration native mais plus complexe à configurer (nécessite un gateway SSE et une configuration proxy).
+
+#### 🚀 Recommandation (Configuration Combinée)
+
+Pour déployer automatiquement des flux depuis un prompt, la meilleure solution est de combiner les approches 1 et 2.
+
+1. Utilisez **`n8n-mcp`** (Approche 1) pour que Claude vous aide à **concevoir** le workflow.
+2. Utilisez **`n8n-mcp-server`** (Approche 2) pour **déployer** automatiquement le workflow JSON généré dans votre instance n8n.
+
+##### Configuration combinée
+
+Ajoutez les **DEUX** serveurs dans votre `claude_desktop_config.json` :
+
+```json
+{
+  "mcpServers": {
+    "n8n-mcp": {
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "--init", "ghcr.io/czlonkowski/n8n-mcp:latest"]
+    },
+    "n8n-instance": {
+      "command": "npx",
+      "args": ["-y", "@ahmad.soliman/mcp-n8n-server"],
+      "env": {
+        "N8N_HOST_URL": "https://votre-n8n.com",
+        "N8N_API_KEY": "votre_cle_api"
+      }
+    }
+  }
+}
+```
+
+##### Workflow type d'utilisation
+
+1. Dites à Claude : *"Crée un workflow n8n qui fait [X]."* (Claude utilisera `n8n-mcp` pour générer le JSON).
+2. Ensuite, dites : *"Déploie ce workflow sur mon instance n8n."* (Claude utilisera `n8n-mcp-server` pour créer le workflow dans votre instance).
+
+### 🔑 Où trouver votre clé API n8n
+
+1. Ouvrez votre instance n8n.
+2. Allez dans **Settings** (Paramètres).
+3. Cliquez sur **API**.
+4. Cliquez sur **Create API Key**.
+5. Copiez la clé (elle ne sera plus visible après la fermeture).
+
+---
+
+## Documentation : Serveur MCP Puppeteer
+
+Le serveur MCP Puppeteer offre des capacités d'automatisation de navigateur, permettant aux LLM d'interagir avec des pages web, prendre des captures d'écran, et exécuter du JavaScript dans un environnement de navigateur réel.
+
+### 📦 Installation et Configuration
+
+Il existe deux méthodes principales d'installation :
+
+1.  **Via NPX (Ouvre une fenêtre de navigateur visible)**
+    -   Commande: `npx -y @modelcontextprotocol/server-puppeteer`
+    -   Configuration Claude Desktop:
+        ```json
+        {
+          "mcpServers": {
+            "puppeteer": {
+              "command": "npx",
+              "args": ["-y", "@modelcontextprotocol/server-puppeteer"]
+            }
+          }
+        }
+        ```
+
+2.  **Via Docker (Mode "headless" - sans interface graphique)**
+    -   Commande: `docker run -i --rm --init -e DOCKER_CONTAINER=true mcp/puppeteer`
+    -   Configuration Claude Desktop:
+        ```json
+        {
+          "mcpServers": {
+            "puppeteer": {
+              "command": "docker",
+              "args": [
+                "run",
+                "-i",
+                "--rm",
+                "--init",
+                "-e",
+                "DOCKER_CONTAINER=true",
+                "mcp/puppeteer"
+              ]
+            }
+          }
+        }
+        ```
+
+### 🔧 Outils et Cas d'usage
+
+#### Outils disponibles
+
+- `puppeteer_navigate`: Naviguer vers une URL spécifique.
+- `puppeteer_screenshot`: Capturer des captures d'écran (page entière ou éléments).
+- `puppeteer_click`: Cliquer sur des éléments de la page.
+- `puppeteer_hover`: Survoler des éléments avec la souris.
+- `puppeteer_fill`: Remplir des formulaires et champs de saisie.
+- `puppeteer_select`: Sélectionner des options dans des menus déroulants.
+- `puppeteer_evaluate`: Exécuter du code JavaScript personnalisé.
+
+#### Cas d'usage principaux
+
+- Web scraping et extraction de données dynamiques (JS-heavy).
+- Tests automatiques d'applications web.
+- Capture de screenshots pour documentation ou surveillance.
+- Automatisation de workflows multi-étapes (connexion, extraction, etc.).
+
+### 🔑 Options de lancement personnalisées
+
+Vous pouvez personnaliser le comportement du navigateur de deux manières :
+
+1.  **Via variable d'environnement `PUPPETEER_LAUNCH_OPTIONS`** :
+    ```json
+    {
+      "mcpServers": {
+        "puppeteer": {
+          "command": "npx",
+          "args": ["-y", "@modelcontextprotocol/server-puppeteer"],
+          "env": {
+            "PUPPETEER_LAUNCH_OPTIONS": "{ \"headless\": false, \"executablePath\": \"C:/Program Files/Google/Chrome/Application/chrome.exe\" }",
+            "ALLOW_DANGEROUS": "true"
+          }
+        }
+      }
+    }
+    ```
+2.  **Via paramètres lors de l'appel des outils** :
+    `{ "url": "https://example.com", "launchOptions": { "headless": false } }`
+
+---
+
+## Installation de Gemini CLI
+
+- **Prérequis** : Assurez-vous que Node.js (version 18+) et npm sont installés.
+- **Installez Gemini CLI globalement** avec la commande : `npm install -g @google/gemini-cli`
+- **Vérifiez l'installation** avec : `gemini --version`
+- **Configurez votre compte** en exécutant `gemini` et en suivant les instructions.
+
+---
+
+## 💡 Sécurité et Dépannage
+
+- **Sécurité** : Vérifiez le format JSON, sécurisez vos fichiers de configuration, et limitez l'accès au serveur. N'utilisez `ALLOW_DANGEROUS: true` que si c'est absolument nécessaire.
+- **Dépannage** : En cas d'erreur, vérifiez les logs de la console, assurez-vous que le serveur MCP est bien en cours d'exécution, et vérifiez le `executablePath` si vous utilisez un navigateur spécifique.
+
+---
+
+## 📚 Références
+
+- **n8n-mcp (Création)** : [https://github.com/czlonkowski/n8n-mcp](https://github.com/czlonkowski/n8n-mcp)
+- **n8n-mcp-server (Contrôle)** : [https://github.com/ahmadsoliman/mcp-n8n-server](https://github.com/ahmadsoliman/mcp-n8n-server)
+- **n8n MCP Server Trigger (Natif)** : [https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-langchain.mcptrigger/](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-langchain.mcptrigger/)
+- **Puppeteer MCP (NPM)** : [https://www.npmjs.com/package/@modelcontextprotocol/server-puppeteer](https://www.npmjs.com/package/@modelcontextprotocol/server-puppeteer)
+- **Documentation MCP Officielle** : [https://modelcontextprotocol.io/](https://modelcontextprotocol.io/)
