@@ -1,6 +1,41 @@
-```yaml
-title: Mon Blog
-description: Blog personnel hébergé sur GitHub Pages
-theme: minima
+title: "Kluster66 Blog"
+description: "Explorations techniques, réflexions et documentation en Markdown"
+author: kluster66
+email: ton.email@example.com
+baseurl: "" # laisse vide pour un site utilisateur GitHub Pages
+url: "https://kluster66.github.io"
 
 theme: jekyll-theme-minimal
+
+markdown: kramdown
+highlighter: rouge
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+# Affichage des articles
+paginate: 5
+paginate_path: "/page:num/"
+
+# Structure des dossiers
+collections:
+  posts:
+    output: true
+
+# Paramètres SEO
+seo:
+  name: "Kluster66 Blog"
+  description: "Blog personnel hébergé sur GitHub Pages avec Jekyll"
+  url: "https://kluster66.github.io"
+
+# Paramètres du feed RSS
+feed:
+  path: feed.xml
+
+# Exclusions
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
