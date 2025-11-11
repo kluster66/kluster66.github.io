@@ -1,6 +1,7 @@
 ---
 layout: home
-title: "Bienvenue sur mon blog"
+title: "Bienvenue sur Kluster66 Blog"
 ---
 
-Voici mes derniers articles :
+Bienvenue sur mon blog technique.  
+Retrouvez ici mes réflexions, guides et explorations en Markdown.
