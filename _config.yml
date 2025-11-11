@@ -5,7 +5,7 @@ author: kluster66
 baseurl: "" # laisse vide pour un site utilisateur GitHub Pages
 url: "https://kluster66.github.io"
 
-theme: jekyll-theme-minimal
+theme: minima
 
 markdown: kramdown
 highlighter: rouge
