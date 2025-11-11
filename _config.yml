@@ -1,7 +1,7 @@
 title: "Kluster66 Blog"
 description: "Explorations techniques, réflexions et documentation en Markdown"
 author: kluster66
-email: ton.email@example.com
+#email: ton.email@example.com
 baseurl: "" # laisse vide pour un site utilisateur GitHub Pages
 url: "https://kluster66.github.io"
 
