@@ -1,1 +1,6 @@
+```yaml
+title: Mon Blog
+description: Blog personnel hébergé sur GitHub Pages
+theme: minima
+
 theme: jekyll-theme-minimal
