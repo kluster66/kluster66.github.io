@@ -1,6 +1,6 @@
 ---
 layout: home
-title: "Bienvenue sur Kluster66 Blog"
+title: "Bienvenue ici"
 ---
 
 Bienvenue sur mon blog technique.  
