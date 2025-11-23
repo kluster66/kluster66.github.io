@@ -12,7 +12,7 @@ Dimanche matin. Tout le monde dort, mon café est chaud. Je m'installe devant mo
 
 Un conteneur tourne. Je n'ai rien lancé. C'est quoi ce truc ?
 
-### Le Suspect : L'image `n8n-mcp`
+### Le Suspect : l'image n8n-mcp
 
 ```bash
 CONTAINER ID    IMAGE                                COMMAND                  STATUS
@@ -47,7 +47,7 @@ J'ai effectivement cette config qui traîne :
 
 Ça ressemble à un coupable idéal. Mais attendez... Un fichier JSON, c'est passif. Ça ne lance pas des commandes `docker run` tout seul pendant que je me frotte les yeux. Il y a autre chose.
 
-## On fouille :  `docker events` est mon ami 
+## On fouille :  **docker events** est mon ami 
 
 Je ferme tout. Je relance VS Code, mais cette fois, je suis prêt. J'ai un mouchard branché sur le moteur Docker :
 
@@ -62,7 +62,7 @@ Les logs affichent des tags révélateurs : `docker-mcp=true` et `docker-mcp-nam
 **Le déclic :** Hier, j'ai installé **Gemini Code Assist**.
 Au démarrage de VS Code, l'extension lit ma config et dit à Docker : *"Hey, réveille tout le monde, on va bosser \!"*.
 
-## 11h06 un Dimanche matin : Analyse du crash
+## 11h06 un dimanche matin : Analyse du crash
 
 Les logs racontent ce qui s'est déroulée en quelques secondes (à 11:06 précises) :
 
@@ -89,4 +89,3 @@ Si vous jouez avec MCP et Docker, n'oubliez pas : vos fichiers de configuration 
   * Boire mon café avant qu'il ne soit froid.
   * Modifier ma config pour que ces conteneurs ne se lancent que sur demande explicite, pour éviter de transformer mon laptop en serveur de prod à chaque ouverture de VS Code.
 
------
