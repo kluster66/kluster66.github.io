@@ -70,3 +70,17 @@ exclude:
   - vendor
   - README.md
   - .obsidian/            # 🔥 si tu édites avec Obsidian
+
+
+  author:
+    name: "Philippe"
+    avatar: "/assets/images/avatar.png"   # si tu as une image
+    bio: "Explorations techniques, DevOps, Markdown et documentation"
+    location: "Pays Basque"
+    links:
+      - label: "GitHub"
+        icon: "fab fa-github"
+        url: "https://github.com/kluster66"
+      - label: "RSS"
+        icon: "fas fa-rss"
+        url: "/feed.xml"
