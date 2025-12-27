@@ -6,7 +6,10 @@ url: "https://kluster66.github.io"
 baseurl: ""   # vide pour un site utilisateur GitHub Pages
 
 #theme: minima
-remote_theme: cotes2020/jekyll-theme-chirpy
+remote_theme: "mmistakes/minimal-mistakes"
+
+sass:
+  style: compressed
 
 markdown: kramdown
 highlighter: rouge
@@ -17,7 +20,7 @@ plugins:
   - jekyll-sitemap        # 🔥 recommandé pour le SEO
   - jekyll-include-cache  # 🔥 améliore les performances
 
-
+# Pagination
 paginate: 5
 paginate_path: "/page:num/"
 
@@ -51,9 +54,12 @@ defaults:
       path: ""
       type: "posts"
     values:
-      layout: "post"
+      layout: single
       author: "kluster66"
       comments: false
+      read_time: true
+      share: true
+      related: true
 
 # Exclusions
 exclude:
