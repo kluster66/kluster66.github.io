@@ -1,13 +1,14 @@
 /* ================================
-   Palette minimaliste tech
+   Palette claire minimaliste
    ================================ */
 
 :root {
-  --main-color: #4cc2ff;        /* bleu cyan tech */
-  --text-color: #e6e6e6;        /* gris clair lisible */
-  --bg-color: #0f1115;          /* fond sombre élégant */
-  --code-bg: #1a1d23;           /* fond des blocs de code */
-  --border-color: #2a2d33;      /* séparateurs discrets */
+  --main-color: #007acc;        /* bleu tech Microsoft-like */
+  --text-color: #222;           /* gris foncé lisible */
+  --bg-color: #ffffff;          /* fond blanc propre */
+  --muted-text: #555;           /* gris doux */
+  --border-color: #e5e5e5;      /* séparateurs légers */
+  --code-bg: #f5f7fa;           /* fond des blocs de code */
 }
 
 /* ================================
@@ -38,15 +39,15 @@ a:hover {
    Titres
    ================================ */
 
-.post-content h1,
-.post-content h2,
-.post-content h3 {
+.page__content h1,
+.page__content h2,
+.page__content h3 {
   color: var(--main-color);
   font-weight: 600;
   margin-top: 2rem;
 }
 
-.post-content h2 {
+.page__content h2 {
   border-left: 4px solid var(--main-color);
   padding-left: .6rem;
 }
@@ -55,8 +56,9 @@ a:hover {
    Paragraphes
    ================================ */
 
-.post-content p {
+.page__content p {
   margin-bottom: 1.2rem;
+  color: var(--text-color);
 }
 
 /* ================================
@@ -67,7 +69,7 @@ code {
   background: var(--code-bg);
   padding: 2px 5px;
   border-radius: 4px;
-  color: #9be2ff;
+  color: #005a9e;
   font-size: 0.95rem;
 }
 
@@ -91,8 +93,9 @@ pre {
 blockquote {
   border-left: 4px solid var(--main-color);
   padding-left: 1rem;
-  color: #b8b8b8;
+  color: var(--muted-text);
   font-style: italic;
+  background: #fafafa;
 }
 
 /* ================================
@@ -109,7 +112,7 @@ hr {
    Images
    ================================ */
 
-.post-content img {
+.page__content img {
   border-radius: 6px;
   border: 1px solid var(--border-color);
 }
@@ -130,16 +133,16 @@ th, td {
 }
 
 th {
-  background: #1b1e24;
+  background: #f0f4f8;
   color: var(--main-color);
 }
 
 /* ================================
-   Navigation / Sidebar
+   Sidebar / Navigation
    ================================ */
 
 .sidebar {
-  background: #0c0e12 !important;
+  background: #f9f9f9 !important;
   border-right: 1px solid var(--border-color);
 }
 
@@ -155,7 +158,7 @@ th {
    Footer
    ================================ */
 
-.footer {
+.page__footer {
   border-top: 1px solid var(--border-color);
-  color: #888;
+  color: var(--muted-text);
 }
