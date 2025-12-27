@@ -1,0 +1,62 @@
+title: "Blog inutile de moi pour moi et peut-être pour d'autres"
+description: "Explorations techniques, réflexions et documentation en Markdown"
+author: "kluster66"
+
+url: "https://kluster66.github.io"
+baseurl: ""   # vide pour un site utilisateur GitHub Pages
+
+theme: minima
+
+markdown: kramdown
+highlighter: rouge
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap        # 🔥 recommandé pour le SEO
+
+paginate: 5
+paginate_path: "/page:num/"
+
+# Collections
+collections:
+  posts:
+    output: true
+
+# SEO
+seo:
+  name: "Kluster66 Blog"
+  description: "Blog personnel hébergé sur GitHub Pages avec Jekyll"
+  url: "https://kluster66.github.io"
+
+# Feed RSS
+feed:
+  path: feed.xml
+
+# Sitemap
+sitemap:
+  filename: "sitemap.xml"
+  exclude:
+    - "Gemfile"
+    - "Gemfile.lock"
+    - "node_modules"
+    - "vendor"
+
+# Defaults (🔥 très utile pour éviter de répéter des front-matter)
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      author: "kluster66"
+      comments: false
+
+# Exclusions
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - README.md
+  - .obsidian/            # 🔥 si tu édites avec Obsidian
