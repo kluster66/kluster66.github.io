@@ -1,3 +1,11 @@
+---
+title: "LLM Phedre & Morcheeba"
+tags:
+  - Echo
+  - blog
+Date de création: 2025-12-07T18:00:00
+---
+
 # L’IA est-elle un pharmakon pour l’intelligence humaine ?
 
 Dans le *Phèdre*, Platon raconte le mythe de Theuth : l’inventeur de l’écriture propose son art comme un remède pour la mémoire, mais le roi Thamous y voit un poison. L’écriture, dit-il, donnera l’illusion du savoir sans la vérité de la sagesse. Bernard Stiegler et Jacques Derrida ont repris ce concept de **pharmakon** — à la fois remède et poison — pour penser notre rapport aux technologies modernes. Aujourd’hui, l’intelligence artificielle (IA) se trouve au cœur de ce dilemme.

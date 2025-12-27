@@ -1,6 +1,7 @@
-title: "Blog inutile de moi pour moi et peut-être pour d'autres"
-description: "Explorations techniques, réflexions et documentation en Markdown"
-author: "kluster66"
+title: "Blog inutile"
+subtitle: "Notes, tests et explorations"
+#description: "Explorations techniques, réflexions et documentation en Markdown"
+#author: "kluster66"
 
 url: "https://kluster66.github.io"
 baseurl: ""   # vide pour un site utilisateur GitHub Pages

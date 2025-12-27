@@ -162,3 +162,22 @@ th {
   border-top: 1px solid var(--border-color);
   color: var(--muted-text);
 }
+
+/* Ligne fine sous le header */
+.masthead {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+/* Titre modernisé */
+.site-title {
+  font-size: 1.6rem;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  color: #007acc;
+}
+
+/* Sous-titre discret */
+.site-subtitle {
+  font-size: 0.9rem;
+  color: #666;
+}
