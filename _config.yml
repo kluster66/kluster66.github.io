@@ -83,3 +83,12 @@ author:
     - label: "RSS"
       icon: "fas fa-rss"
       url: "/feed.xml"
+      
+#navigation
+navigation:
+  - title: "Accueil"
+    url: /
+  - title: "À propos"
+    url: /about/
+  - title: "Contact"
+    url: /contact/
