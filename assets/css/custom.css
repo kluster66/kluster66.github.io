@@ -1,0 +1,161 @@
+/* ================================
+   Palette minimaliste tech
+   ================================ */
+
+:root {
+  --main-color: #4cc2ff;        /* bleu cyan tech */
+  --text-color: #e6e6e6;        /* gris clair lisible */
+  --bg-color: #0f1115;          /* fond sombre élégant */
+  --code-bg: #1a1d23;           /* fond des blocs de code */
+  --border-color: #2a2d33;      /* séparateurs discrets */
+}
+
+/* ================================
+   Fond global + lisibilité
+   ================================ */
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  line-height: 1.7;
+  font-size: 1.05rem;
+}
+
+/* ================================
+   Liens
+   ================================ */
+
+a {
+  color: var(--main-color);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* ================================
+   Titres
+   ================================ */
+
+.post-content h1,
+.post-content h2,
+.post-content h3 {
+  color: var(--main-color);
+  font-weight: 600;
+  margin-top: 2rem;
+}
+
+.post-content h2 {
+  border-left: 4px solid var(--main-color);
+  padding-left: .6rem;
+}
+
+/* ================================
+   Paragraphes
+   ================================ */
+
+.post-content p {
+  margin-bottom: 1.2rem;
+}
+
+/* ================================
+   Code inline
+   ================================ */
+
+code {
+  background: var(--code-bg);
+  padding: 2px 5px;
+  border-radius: 4px;
+  color: #9be2ff;
+  font-size: 0.95rem;
+}
+
+/* ================================
+   Blocs de code
+   ================================ */
+
+.highlight pre,
+pre {
+  background: var(--code-bg) !important;
+  border: 1px solid var(--border-color);
+  padding: 1rem;
+  border-radius: 6px;
+  overflow-x: auto;
+}
+
+/* ================================
+   Citations
+   ================================ */
+
+blockquote {
+  border-left: 4px solid var(--main-color);
+  padding-left: 1rem;
+  color: #b8b8b8;
+  font-style: italic;
+}
+
+/* ================================
+   Séparateurs
+   ================================ */
+
+hr {
+  border: none;
+  border-top: 1px solid var(--border-color);
+  margin: 2rem 0;
+}
+
+/* ================================
+   Images
+   ================================ */
+
+.post-content img {
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+}
+
+/* ================================
+   Tables
+   ================================ */
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1.5rem 0;
+}
+
+th, td {
+  border: 1px solid var(--border-color);
+  padding: 8px 12px;
+}
+
+th {
+  background: #1b1e24;
+  color: var(--main-color);
+}
+
+/* ================================
+   Navigation / Sidebar
+   ================================ */
+
+.sidebar {
+  background: #0c0e12 !important;
+  border-right: 1px solid var(--border-color);
+}
+
+.sidebar a {
+  color: var(--text-color);
+}
+
+.sidebar a:hover {
+  color: var(--main-color);
+}
+
+/* ================================
+   Footer
+   ================================ */
+
+.footer {
+  border-top: 1px solid var(--border-color);
+  color: #888;
+}
