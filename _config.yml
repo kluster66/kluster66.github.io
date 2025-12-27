@@ -58,7 +58,7 @@ defaults:
       author: "kluster66"
       comments: false
       read_time: true
-      share: true
+      share: false
       related: true
 
 # Exclusions

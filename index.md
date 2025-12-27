@@ -1,8 +1,7 @@
 ---
 layout: home
-title: "Bienvenue ici"
+title: "Bienvenue"
 author_profile: true
 ---
-
-Bienvenue sur mon blog technique.  
-Retrouvez ici mes réflexions, guides et explorations en Markdown.
+Bienvenue sur mon espace d’expérimentations, de notes techniques et de réflexions en Markdown.
+Les derniers articles sont listés ci‑dessous.
