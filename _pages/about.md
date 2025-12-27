@@ -2,15 +2,9 @@
 title: "À propos"
 permalink: /about/
 layout: single
-author_profile: true
----
-
----
-title: "À propos"
-layout: single
-permalink: /about/
 author_profile: false
 ---
+
 
 ##  Qui suis‑je ?
 
