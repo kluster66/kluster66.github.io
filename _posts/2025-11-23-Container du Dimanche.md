@@ -40,7 +40,7 @@ Mon premier réflexe, c'est de me blâmer. Je me dis : *"C'est sûrement mon `se
 
 J'ai effectivement cette config qui traîne :
 
-```json
+```bash
 "n8n-mcp": {
     "command": "docker",
     "args": [
