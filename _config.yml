@@ -61,6 +61,7 @@ defaults:
       read_time: true
       share: false
       related: true
+      nav: main
 
 # Exclusions
 exclude:
@@ -84,11 +85,3 @@ author:
       icon: "fas fa-rss"
       url: "/feed.xml"
       
-#navigation
-navigation:
-  - title: "Accueil"
-    url: /
-  - title: "À propos"
-    url: /about/
-  - title: "Contact"
-    url: /contact/
