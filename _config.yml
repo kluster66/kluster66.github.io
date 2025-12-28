@@ -29,6 +29,9 @@ paginate_path: "/page:num/"
 collections:
   posts:
     output: true
+  pages:
+    output: true
+    permalink: /:name/
 
 # SEO
 seo:
@@ -85,10 +88,3 @@ author:
       icon: "fas fa-rss"
       url: "/feed.xml"
 
-navigation:
-  - title: "Accueil"
-    url: /
-  - title: "À propos"
-    url: /about/
-  - title: "Contact"
-    url: /contact/
